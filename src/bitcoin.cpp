@@ -1,6 +1,8 @@
 #include "bitcoin.h"
 #include <math.h>
 
+/*Class to represent a bitcoin*/
+/*holds id of bitcoin, bid, ask, exchange name, fees etc*/
 Bitcoin::Bitcoin(unsigned i, std::string n, double f, bool h) {
   id = i;
   exchName = n;
