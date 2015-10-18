@@ -49,6 +49,7 @@ Decrement the reference count of json. As soon as a call to json_decref() drops 
 
 
 double getAvail(CURL *curl, Parameters params, std::string currency) {
+  /*https://www.bitstamp.net/api/balance/ - Account balance*/
   json_t *root = authRequest(curl, params, "https://www.bitstamp.net/api/balance/", "");
   while (json_object_get(root, "message") != NULL) {
     sleep(1.0);
