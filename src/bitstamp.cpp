@@ -86,15 +86,28 @@ int sendOrder(CURL *curl, Parameters params, std::string direction, double quant
   }
 
   std::cout << "<Bitstamp> Trying to send a \"" << direction << "\" limit order: " << quantity << "@$" << limPrice << "..." << std::endl;
+/*class std::ostringstream : Output stream class to operate on strings.
+Objects of this class use a string buffer that contains a sequence of characters. This sequence of characters can be accessed directly as a string object, using member str.*/
+
   std::ostringstream oss;
   oss << "https://www.bitstamp.net/api/" << direction << "/";
+/*
+public member function std::ostringstream::str 
+1.string str() const;
+2.void str (const string& s);
+Get/set content
+The first form (1) returns a string object with a copy of the current contents of the stream.
+The second form (2) sets s as the contents of the stream, discarding any previous contents. The object preserves its open mode: if this includes ios_base::ate, the writing position is moved to the end of the new sequence.
+*/
   std::string url = oss.str();
   oss.clear();
   oss.str("");
-
+  
+  /*This operator (<<) applied to an output stream is known as insertion operator. It will insert objects into the output stream*/
   oss << "amount=" << quantity << "&price=" << std::fixed << std::setprecision(2) << limPrice;
-  std::string options = oss.str();
-  json_t *root = authRequest(curl, params, url, options);
+  std::string options = oss.str(); /*oss will return amount=&price=<limPrice value with precision = 2>*/
+  /*url used as argument to function below stores the https://www.bitstamp.net/api/" << direction API address*/
+  json_t *root = authRequest(curl, params, url, options);/*root will get assigned with this authRequest*/
 
   int orderId = json_integer_value(json_object_get(root, "id"));
   if (orderId == 0) {
