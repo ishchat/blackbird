@@ -21,13 +21,17 @@
 namespace Bitstamp {
 
 double getQuote(CURL *curl, bool isBid) {
+  /*root declared as a pointer to json_t type data structure in jansson*/
+  /*root will point to json_t structure having key:value pairs. Key can be "bid" or ask" among other things as we are reading from bitstamp ticker API*/
   json_t *root = getJsonFromUrl(curl, "https://www.bitstamp.net/api/ticker/", "");
   const char* quote;
   double quoteValue;
   /*isBid is bool being supplied as parameter to function*/
   if (isBid) {
+    /*from root pointer, value corresponding to "bid" key retrieved*/
     quote = json_string_value(json_object_get(root, "bid"));
   } else {
+    /*from root pointer, value corresponding to "ask" key retrieved*/
     quote = json_string_value(json_object_get(root, "ask"));
   }
   if (quote != NULL) {
