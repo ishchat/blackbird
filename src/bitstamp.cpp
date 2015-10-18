@@ -24,16 +24,21 @@ double getQuote(CURL *curl, bool isBid) {
   json_t *root = getJsonFromUrl(curl, "https://www.bitstamp.net/api/ticker/", "");
   const char* quote;
   double quoteValue;
+  /*isBid is bool being supplied as parameter to function*/
   if (isBid) {
     quote = json_string_value(json_object_get(root, "bid"));
   } else {
     quote = json_string_value(json_object_get(root, "ask"));
   }
   if (quote != NULL) {
+      /*atof : Convert string to double*/
     quoteValue = atof(quote);
   } else {
     quoteValue = 0.0;
   }
+ /*The reference count is used to track whether a value is still in use or not. When a value is created, it’s reference count is set to 1. If a reference to a value is kept (e.g. a value is stored somewhere for later use), its reference count is incremented, and when the value is no longer needed, the reference count is decremented. When the reference count drops to zero, there are no references left, and the value can be destroyed.*/
+ /*void json_decref(json_t *json)
+Decrement the reference count of json. As soon as a call to json_decref() drops the reference count to zero, the value is destroyed and it can no longer be used.*/
   json_decref(root);
   return quoteValue;
 }
