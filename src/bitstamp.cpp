@@ -54,14 +54,19 @@ double getAvail(CURL *curl, Parameters params, std::string currency) {
   while (json_object_get(root, "message") != NULL) {
     sleep(1.0);
     std::cout << "<Bitstamp> Error with JSON in getAvail: " << json_dumps(root, 0) << ". Retrying..." << std::endl;
+    /*root a pointer to json_t data structure would take value returned by authrequest to balance bitstamp API*/
     root = authRequest(curl, params, "https://www.bitstamp.net/api/balance/", "");
   }
 
   double availability = 0.0;
+  /*currency is a string supplied as parameter to the function getAvail*/
+  /*http://www.cplusplus.com/reference/string/string/compare/ if <std::string> str1.compare("str2")==0 then strings equal*/
   if (currency.compare("btc") == 0) {
+    /*"btc_balance" is a key in the JSON object returned by json_object_get"*/
     availability = atof(json_string_value(json_object_get(root, "btc_balance")));
   }
   else if (currency.compare("usd") == 0) {
+        /*"usd_balance" is a key in the JSON object returned by json_object_get"*/
     availability = atof(json_string_value(json_object_get(root, "usd_balance")));
   }
   json_decref(root);
