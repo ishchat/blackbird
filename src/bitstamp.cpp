@@ -73,8 +73,10 @@ double getAvail(CURL *curl, Parameters params, std::string currency) {
   return availability;
 }
 
-
+/*To send order to bitstamp*/
+/*To send order to bitstamp - direction is buy or sell*/
 int sendOrder(CURL *curl, Parameters params, std::string direction, double quantity, double price) {
+  /*Before sending order to bitstamp API, first get limitprice of the buy or sell order for the specific quantity*/
   double limPrice;  // define limit price to be sure to be executed
   if (direction.compare("buy") == 0) {
     limPrice = getLimitPrice(curl, quantity, false);
