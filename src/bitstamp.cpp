@@ -109,9 +109,10 @@ The second form (2) sets s as the contents of the stream, discarding any previou
   /*url used as argument to function below stores the https://www.bitstamp.net/api/" << direction API address*/
   json_t *root = authRequest(curl, params, url, options);/*root will get assigned with this authRequest*/
 
+/*"id" is a key in root JSON object. We are fetching its value*/ 
   int orderId = json_integer_value(json_object_get(root, "id"));
   if (orderId == 0) {
-    std::cout << "<Bitstamp> Order ID = 0. Message: " << json_dumps(root, 0) << std::endl;
+    std::cout << "<Bitstamp> Order ID = 0. Message: " << json_dumps(root, 0) /*json_dumps returns the JSON form of root. 0 is a used for indentation*/ << std::endl;
   }
   std::cout << "<Bitstamp> Done (order ID: " << orderId << ")\n" << std::endl;
   json_decref(root);
