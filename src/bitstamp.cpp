@@ -13,6 +13,11 @@
 #include "bitstamp.h"
 #include "curl_fun.h"
 
+/*OpenSSL is a software library to be used in applications that need to secure communications against eavesdropping or need to ascertain the identity of the party at the other end. It has found wide use in internet web servers, serving a majority of all web sites.OpenSSL contains an open-source implementation of the SSL and TLS protocols. The core library, written in the C programming language, implements basic cryptographic functions and provides various utility functions.*/
+/*Jansson is a C library for encoding, decoding and manipulating JSON data. */
+/*iomanip.h : Header providing parametric manipulators like setprecision*/
+/*unistd.h is the name of the header file that provides access to the POSIX operating system API. unistd.h is typically made up largely of system call wrapper functions such as fork, pipe and I/O primitives (read, write, close, etc.).*/
+
 namespace Bitstamp {
 
 double getQuote(CURL *curl, bool isBid) {
